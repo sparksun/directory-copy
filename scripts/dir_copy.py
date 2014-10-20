@@ -52,7 +52,9 @@ for dir in dirs_to_copy:
             os.makedirs(directory)
             print '\t\t\tMade parent directory at ' + directory
         # copy the file
-        print '\t\tCopying ' + relative_file_path + " to " + target_dir
-        shutil.copyfile(source_file_path, target_file_path)
-        print '\t\tCopied ' + relative_file_path
-
+	if not (os.path.exists(target_file_path) and os.path.getsize(source_file_path)==os.path.getsize(target_file_path)):
+            print '\t\tCopying ' + relative_file_path + " to " + target_dir
+            shutil.copyfile(source_file_path, target_file_path)
+            print '\t\tCopied ' + relative_file_path
+        else:
+            print '\t\tAlready existing ' + relative_file_path + ', ignore it'
